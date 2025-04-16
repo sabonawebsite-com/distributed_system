@@ -1,7 +1,27 @@
+<style>
+.chat-fat{
+        font-size: 22px;
+     
+        background-color: rgb(5, 62, 250);
+        color: white;
+        width: fit-content;
+        align-items: center;
+        padding: 10px 20px;
+    }
+    p{
+        font-size: 19px;
+        background-color: green;
+        color: white;
+        width: fit-content;
+        align-items: center;
+        padding: 10px 20px;
+    }
+</style>
+
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Welcome to RPC Server-Client</h2>
+<h2 class="chat-fat">Welcome to RPC Server-Client</h2>
 <p>Use the menu above to interact with the RPC server.</p>
 <p>Make sure your RPC server is running at http://localhost:8000</p>
 {% endblock %}
