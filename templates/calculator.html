@@ -1,121 +1,188 @@
 <style>
+   
+    .content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: linear-gradient(145deg, #ffffff, #f0f2f5);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
 
-.calculator-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 2rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
 
-.calculator-container h2 {
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-}
+    h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #3498db, #9b59b6);
+        border-radius: 2px;
+    }
 
-.calculator-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-}
+    .calbox {
+        display: grid;
+        gap: 1.5rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
+    .calbox:hover {
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    }
 
-.form-group label {
-    margin-bottom: 0.5rem;
-    color: #34495e;
-    font-weight: 500;
-}
+    .calbox div {
+        display: flex;
+        flex-direction: column;
+    }
 
-.form-group input[type="number"] {
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
+    label {
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #34495e;
+        font-size: 0.95rem;
+    }
 
-.form-group input[type="number"]:focus {
-    border-color: #3498db;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-}
+    input, select {
+        padding: 0.8rem 1rem;
+        border: 2px solid #e0e3e7;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
 
-.form-group select {
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background-color: white;
-    font-size: 1rem;
-    cursor: pointer;
-}
+    input:focus, select:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
 
-button[type="submit"] {
-    background-color: #3498db;
-    color: white;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+    input:hover, select:hover {
+        border-color: #bdc3c7;
+    }
 
-button[type="submit"]:hover {
-    background-color: #2980b9;
-}
 
-.result {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #2ecc71;
-}
+    button[type="submit"] {
+        padding: 0.8rem 1.5rem;
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-.result h3 {
-    color: #27ae60;
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
+    button[type="submit"]:hover {
+        background: linear-gradient(135deg, #2980b9, #3498db);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
 
-.result p {
-    font-size: 1.2rem;
-    color: #2c3e50;
-    margin: 0;
-    font-weight: 500;
-}
-.calbox{
-    border: 1px solid #0b19dd;
-    padding: 10px 29px;
-    align-items: center;
-    width: 70%;
-}
+    button[type="submit"]:active {
+        transform: translateY(0);
+    }
 
-.error {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background-color: #fdecea;
-    border-radius: 6px;
-    border-left: 4px solid #e74c3c;
-    color: #c0392b;
-}
-@media (max-width: 600px) {
-    .calculator-container {
+    .result {
+        margin-top: 2rem;
         padding: 1.5rem;
+        background: rgba(46, 204, 113, 0.1);
+        border-radius: 12px;
+        border-left: 4px solid #2ecc71;
+        animation: fadeIn 0.5s ease-out;
     }
-    
-    .calculator-form {
-        gap: 1rem;
+
+    .result h3 {
+        color: #27ae60;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
-}
+
+    .result p {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    .error {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: rgba(231, 76, 60, 0.1);
+        border-radius: 12px;
+        border-left: 4px solid #e74c3c;
+        animation: shake 0.5s ease-out;
+    }
+
+    .error p {
+        color: #e74c3c;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-5px); }
+        40%, 80% { transform: translateX(5px); }
+    }
+
+
+    @media (max-width: 768px) {
+        .content {
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+        
+        .calbox {
+            padding: 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .content {
+            padding: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+        }
+        
+        .calbox {
+            padding: 1rem;
+            gap: 1rem;
+        }
+        
+        input, select, button[type="submit"] {
+            padding: 0.7rem;
+        }
+    }
 </style>
 
 {% extends "base.html" %}
@@ -124,27 +191,25 @@ button[type="submit"]:hover {
 <h2>Calculator Service</h2>
 <form method="POST">
     <div class="calbox">
-
-   
-    <div>
-        <label for="a">First number:</label>
-        <input type="number" step="any" id="a" name="a" required>
+        <div>
+            <label for="a">First number:</label>
+            <input type="number" step="any" id="a" name="a" required>
+        </div>
+        <div>
+            <label for="b">Second number:</label>
+            <input type="number" step="any" id="b" name="b" required>
+        </div>
+        <div>
+            <label for="operation">Operation:</label>
+            <select id="operation" name="operation">
+                <option value="add">Add (+)</option>
+                <option value="subtract">Subtract (-)</option>
+                <option value="multiply">Multiply (*)</option>
+                <option value="divide">Divide (/)</option>
+            </select>
+        </div>
+        <button type="submit">Calculate</button>
     </div>
-    <div>
-        <label for="b">Second number:</label>
-        <input type="number" step="any" id="b" name="b" required>
-    </div>
-    <div>
-        <label for="operation">Operation:</label>
-        <select id="operation" name="operation">
-            <option value="add">Add (+)</option>
-            <option value="subtract">Subtract (-)</option>
-            <option value="multiply">Multiply (*)</option>
-            <option value="divide">Divide (/)</option>
-        </select>
-    </div>
-    <button type="submit">Calculate</button>
-</div>
 </form>
 
 {% if result is defined %}

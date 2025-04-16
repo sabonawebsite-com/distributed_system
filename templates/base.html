@@ -3,62 +3,269 @@
 <head>
     <title>Flask RPC Web Client</title>
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --dark-color: #2b2d42;
+            --light-color: #f8f9fa;
+            --success-color: #4ad66d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: var(--dark-color);
+            min-height: 100vh;
+            padding: 2rem;
+            line-height: 1.6;
         }
-        .menu {
-            border: 1px solid #ccc;
-            padding: 10px;
-            align-items: center;
+
+        h1, h2 {
             text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .image-show {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            gap: 2rem;
+            animation: float 6s ease-in-out infinite;
         }
+
+        .image-show img {
+            height: 100px;
+            transition: var(--transition);
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+        }
+
+        .image-show img:nth-child(1) {
+            animation: pulse 3s ease infinite;
+        }
+
+        .image-show img:nth-child(3) {
+            animation: pulse 3s ease infinite 0.5s;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+        }
+
         .menu a {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
             text-decoration: none;
-            padding: 8px 15px;
-            background-color: #10d13a;
-            border-radius: 4px;
-            color: #fdf7f7;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
+
+        .menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+            border-radius: 50px;
+        }
+
         .menu a:hover {
-            background-color: #ddd;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        form {
-            margin-top: 20px;
+
+        .menu a:hover::before {
+            opacity: 1;
         }
-        input, select, button {
-            padding: 8px;
-            margin: 5px 0;
+
+        .group-photo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
         }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f8f8f8;
-            border-radius: 4px;
+
+        .group-photo img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
         }
-        .error {
-            color: red;
+
+        .group-photo img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .group-photo label {
+            position: absolute;
+            bottom: 20px;
+            right: calc(50% - 100px);
+            background-color: var(--success-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s infinite;
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+            margin: 2rem auto;
+            width: 50%;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .image-show {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .menu {
+                gap: 1rem;
+            }
+            
+            .menu a {
+                padding: 0.6rem 1.2rem;
+            }
+            
+            .group-photo img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .menu {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
     <h1> RPC Client-server</h1>
-    <img src="/static/server.png" alt="">
-    <img src="/static/arrow.png" alt="">
-    <img src="/static/client.png" alt="">
-    <h2>Welcome to the Flask RPC Web Client</h2>
+    <div class="image-show">
+        <img src="/static/server.png" alt="Server">
+        <img src="/static/arrow.gif" alt="Arrow">
+        <img src="/static/client.png" alt="Client">
+    </div>
+    <h2>Welcome to RPC Server-Client</h2>
 
     <div class="menu">
         <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('echo') }}">Echo</a>
         <a href="{{ url_for('calculator') }}">Calculator</a>
         <a href="{{ url_for('info') }}">Server Info</a>
     </div>
+    
     {% block content %}{% endblock %}
+    
+    <h1>Creator of this project</h1>
+    <div class="group-photo">
+        <img src="/static/creator.gif" alt="Creator">
+        <label>✔</label>
+    </div>
+    <hr>
+    <h2> By group 4</h2>
 </body>
 </html>
