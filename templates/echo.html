@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Echo Service</h2>
+<form method="POST">
+    <div>
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" required>
+    </div>
+    <button type="submit">Send to Server</button>
+</form>
+
+{% if message %}
+<div class="result">
+    <h3>Result:</h3>
+    <p>Original message: {{ message }}</p>
+    <p>Server response: {{ result.result }}</p>
+</div>
+{% endif %}
+
+{% if result.error %}
+<div class="error">
+    <p>Error: {{ result.error }}</p>
+</div>
+{% endif %}
+{% endblock %}

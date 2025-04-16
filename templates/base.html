@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask RPC Web Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .menu {
+            border: 1px solid #ccc;
+            padding: 10px;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .menu a {
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #10d13a;
+            border-radius: 4px;
+            color: #fdf7f7;
+        }
+        .menu a:hover {
+            background-color: #ddd;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, select, button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1> RPC Client-server</h1>
+    <img src="/static/server.png" alt="">
+    <img src="/static/arrow.png" alt="">
+    <img src="/static/client.png" alt="">
+    <h2>Welcome to the Flask RPC Web Client</h2>
+
+    <div class="menu">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('echo') }}">Echo</a>
+        <a href="{{ url_for('calculator') }}">Calculator</a>
+        <a href="{{ url_for('info') }}">Server Info</a>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>

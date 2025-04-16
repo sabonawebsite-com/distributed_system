@@ -1,0 +1,170 @@
+<style>
+
+.calculator-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-container h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    color: #34495e;
+    font-weight: 500;
+}
+
+.form-group input[type="number"] {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="number"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.form-group select {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.result {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #2ecc71;
+}
+
+.result h3 {
+    color: #27ae60;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.result p {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 500;
+}
+.calbox{
+    border: 1px solid #0b19dd;
+    padding: 10px 29px;
+    align-items: center;
+    width: 70%;
+}
+
+.error {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #fdecea;
+    border-radius: 6px;
+    border-left: 4px solid #e74c3c;
+    color: #c0392b;
+}
+@media (max-width: 600px) {
+    .calculator-container {
+        padding: 1.5rem;
+    }
+    
+    .calculator-form {
+        gap: 1rem;
+    }
+}
+</style>
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Calculator Service</h2>
+<form method="POST">
+    <div class="calbox">
+
+   
+    <div>
+        <label for="a">First number:</label>
+        <input type="number" step="any" id="a" name="a" required>
+    </div>
+    <div>
+        <label for="b">Second number:</label>
+        <input type="number" step="any" id="b" name="b" required>
+    </div>
+    <div>
+        <label for="operation">Operation:</label>
+        <select id="operation" name="operation">
+            <option value="add">Add (+)</option>
+            <option value="subtract">Subtract (-)</option>
+            <option value="multiply">Multiply (*)</option>
+            <option value="divide">Divide (/)</option>
+        </select>
+    </div>
+    <button type="submit">Calculate</button>
+</div>
+</form>
+
+{% if result is defined %}
+<div class="result">
+    <h3>Result:👇</h3>
+    {% if operation == 'add' %}
+        <p>{{ a }} + {{ b }} = {{ result }}</p>
+    {% elif operation == 'subtract' %}
+        <p>{{ a }} - {{ b }} = {{ result }}</p>
+    {% elif operation == 'multiply' %}
+        <p>{{ a }} * {{ b }} = {{ result }}</p>
+    {% elif operation == 'divide' %}
+        <p>{{ a }} / {{ b }} = {{ result }}</p>
+    {% endif %}
+</div>
+{% endif %}
+
+{% if error %}
+<div class="error">
+    <p>Error: {{ error }}</p>
+</div>
+{% endif %}
+{% endblock %}
