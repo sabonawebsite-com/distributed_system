@@ -2,6 +2,7 @@
    
     .content {
         max-width: 600px;
+      
         margin: 0 auto;
         padding: 2rem;
         background: linear-gradient(145deg, #ffffff, #f0f2f5);
@@ -216,20 +217,20 @@
 <div class="result">
     <h3>Result:👇</h3>
     {% if operation == 'add' %}
-        <p>{{ a }} + {{ b }} = {{ result }}</p>
+        <p>{{ a }} + {{ b }} = {{ result }}✔️</p>
     {% elif operation == 'subtract' %}
-        <p>{{ a }} - {{ b }} = {{ result }}</p>
+        <p>{{ a }} - {{ b }} = {{ result }}✔️</p>
     {% elif operation == 'multiply' %}
-        <p>{{ a }} * {{ b }} = {{ result }}</p>
+        <p>{{ a }} * {{ b }} = {{ result }}✔️</p>
     {% elif operation == 'divide' %}
-        <p>{{ a }} / {{ b }} = {{ result }}</p>
+        <p>{{ a }} / {{ b }} = {{ result }}✔️</p>
     {% endif %}
 </div>
 {% endif %}
 
 {% if error %}
 <div class="error">
-    <p>Error: {{ error }}</p>
+    <p>Error: {{ error }} ❌</p>
 </div>
 {% endif %}
 {% endblock %}

@@ -1,3 +1,70 @@
+<style>
+    /* Server Information Styles */
+.result {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.result h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.result h3 {
+    color: #3498db;
+    margin: 15px 0 8px 0;
+    font-size: 1.2em;
+}
+
+.result p {
+    color: #34495e;
+    line-height: 1.6;
+    margin: 0 0 10px 0;
+    padding-left: 15px;
+}
+
+.result ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.result li {
+    background-color: #e8f4fc;
+    margin: 5px 0;
+    padding: 8px 15px;
+    border-radius: 4px;
+    color: #2980b9;
+    font-family: 'Courier New', monospace;
+}
+
+/* Status specific styling */
+.result p:nth-of-type(1) {
+    font-weight: bold;
+    color: #27ae60; /* Green for status */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .result {
+        padding: 15px;
+        margin: 15px 10px;
+    }
+    
+    .result h3 {
+        font-size: 1.1em;
+    }
+}
+</style>
+
 {% extends "base.html" %}
 
 {% block content %}
